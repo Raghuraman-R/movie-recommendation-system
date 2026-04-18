@@ -5,12 +5,12 @@ import train
 
 st.title("🎬 Movie Recommendation System")
 
-# Step 1: Ensure files exist
+# Step 1: Ensure pkl files exist
 if not os.path.exists("movies.pkl") or not os.path.exists("similarity.pkl"):
     st.write("⏳ Preparing data... please wait...")
     train.main()
 
-# Step 2: Load AFTER ensuring files
+# Step 2: Load data AFTER creation
 @st.cache_resource
 def load_data():
     movies = pickle.load(open('movies.pkl','rb'))
