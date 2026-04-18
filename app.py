@@ -3,15 +3,19 @@ import pickle
 import os
 import train
 
-# Ensure pkl files exist
-if not os.path.exists("movies.pkl") or not os.path.exists("similarity.pkl"):
-    st.write("⏳ Preparing data... please wait...")
-    train.main()
+# Force training using cache (runs once)
+@st.cache_resource
+def load_data():
+    if not os.path.exists("movies.pkl") or not os.path.exists("similarity.pkl"):
+        st.write("⏳ Preparing data... please wait...")
+        train.main()
 
-# Load data
-movies = pickle.load(open('movies.pkl','rb'))
-similarity = pickle.load(open('similarity.pkl','rb'))
+    movies = pickle.load(open('movies.pkl','rb'))
+    similarity = pickle.load(open('similarity.pkl','rb'))
 
+    return movies, similarity
+
+movies, similarity = load_data()
 # recommendation function
 def recommend(movie):
     index = movies[movies['title'] == movie].index[0]
