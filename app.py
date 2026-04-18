@@ -2,10 +2,11 @@ import streamlit as st
 import pickle
 import os
 
+# Step 1: Generate pkl if not exists
 if not os.path.exists("movies.pkl") or not os.path.exists("similarity.pkl"):
-    import train
+    os.system("python train.py")
 
-# load data
+# Step 2: Load data
 movies = pickle.load(open('movies.pkl','rb'))
 similarity = pickle.load(open('similarity.pkl','rb'))
 
