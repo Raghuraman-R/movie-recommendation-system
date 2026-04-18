@@ -1,5 +1,9 @@
 import streamlit as st
 import pickle
+import os
+
+if not os.path.exists("movies.pkl") or not os.path.exists("similarity.pkl"):
+    import train
 
 # load data
 movies = pickle.load(open('movies.pkl','rb'))
